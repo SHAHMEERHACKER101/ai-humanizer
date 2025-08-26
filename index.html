@@ -4,334 +4,423 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexusRank Pro - Professional AI-Powered SEO Toolkit</title>
-    <meta name="description" content="Transform your content strategy with 6 cutting-edge AI tools. Generate, optimize, and perfect your content with advanced artificial intelligence.">
+    <meta name="description" content="Transform your content strategy with 6 professional AI tools. Generate, optimize, and perfect your content with advanced AI.">
+    <meta name="keywords" content="AI SEO, humanize AI text, AI detector, grammar checker, paraphrasing tool, text improver">
+    <meta name="author" content="NexusRank Pro">
     
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
+    <meta property="og:title" content="NexusRank Pro - AI-Powered SEO Toolkit">
+    <meta property="og:description" content="Professional AI-powered SEO and writing tools for content creators, marketers, and businesses.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://nexusrankpro.pages.dev/">
-    <meta property="og:title" content="NexusRank Pro - Professional AI-Powered SEO Toolkit">
-    <meta property="og:description" content="Transform your content strategy with 6 cutting-edge AI tools. Generate, optimize, and perfect your content with advanced artificial intelligence.">
-    <meta property="og:image" content="https://nexusrankpro.pages.dev/icons/icon.svg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://nexusrankpro.pages.dev/">
-    <meta property="twitter:title" content="NexusRank Pro - Professional AI-Powered SEO Toolkit">
-    <meta property="twitter:description" content="Transform your content strategy with 6 cutting-edge AI tools. Generate, optimize, and perfect your content with advanced artificial intelligence.">
-    <meta property="twitter:image" content="https://nexusrankpro.pages.dev/icons/icon.svg">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/icons/icon.svg">
+    <meta property="og:url" content="https://nexusrank.pages.dev">
     
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#00ffff">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NexusRank Pro - AI-Powered SEO Toolkit">
+    <meta name="twitter:description" content="Professional AI-powered SEO and writing tools for content creators, marketers, and businesses.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Stylesheet -->
+    <!-- Styles -->
     <link rel="stylesheet" href="/css/style.css">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 </head>
-<body class="dark">
+<body>
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-panel" id="navigation">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <a href="/" class="flex items-center space-x-3">
-                    <i class="fas fa-rocket text-neon-blue text-2xl animate-pulse-glow"></i>
-                    <span class="font-jetbrains text-xl font-bold neon-text text-neon-blue">NexusRank Pro</span>
-                </a>
-                
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="#tools" class="hover:text-neon-blue transition-colors">Tools</a>
-                    <a href="/pages/about.html" class="hover:text-neon-blue transition-colors">About</a>
-                    <a href="/pages/contact.html" class="hover:text-neon-blue transition-colors">Contact</a>
-                    <button id="pro-login-btn" class="neon-button px-4 py-2 rounded-lg font-jetbrains text-sm">
-                        <i class="fas fa-user mr-2"></i>Pro Login
-                    </button>
-                </div>
-                
-                <button id="mobile-menu-btn" class="md:hidden text-neon-blue text-xl">
-                    <i class="fas fa-bars"></i>
-                </button>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <i class="fas fa-rocket"></i>
+                NexusRank Pro
+            </a>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/pages/about.html" class="nav-link" target="_blank">About</a>
+                <a href="/pages/contact.html" class="nav-link" target="_blank">Contact</a>
+                <a href="#tools" class="nav-link">Tools</a>
             </div>
             
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="md:hidden mt-4 space-y-4 border-t border-neon-blue/30 pt-4 hidden">
-                <a href="#tools" class="block hover:text-neon-blue transition-colors">Tools</a>
-                <a href="/pages/about.html" class="block hover:text-neon-blue transition-colors">About</a>
-                <a href="/pages/contact.html" class="block hover:text-neon-blue transition-colors">Contact</a>
-                <button id="mobile-pro-login-btn" class="neon-button px-4 py-2 rounded-lg font-jetbrains text-sm w-full">
-                    <i class="fas fa-user mr-2"></i>Pro Login
-                </button>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 cyber-grid-bg">
-        <div class="absolute inset-0 bg-gradient-radial from-neon-blue/10 via-transparent to-transparent opacity-50"></div>
-        
-        <div class="container mx-auto px-6 text-center relative z-10">
-            <div class="animate-float">
-                <h1 class="font-jetbrains text-5xl md:text-7xl font-bold mb-6 neon-text text-neon-blue">
-                    NEXUSRANK PRO
-                </h1>
-                <p class="text-xl md:text-2xl mb-8 text-gray-300">
-                    Professional AI-Powered SEO Toolkit
-                </p>
-                <p class="text-lg mb-12 text-gray-400 max-w-3xl mx-auto">
-                    Transform your content strategy with 6 cutting-edge AI tools. 
-                    Generate, optimize, and perfect your content with advanced artificial intelligence.
-                </p>
-            </div>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button id="get-started-btn" class="neon-button px-8 py-4 rounded-lg font-jetbrains text-lg">
-                    <i class="fas fa-rocket mr-2"></i>
-                    Get Started Free
-                </button>
-                <button id="support-btn" class="purple-button px-8 py-4 rounded-lg font-jetbrains text-lg transition-all bg-transparent">
-                    <i class="fas fa-heart mr-2"></i>
-                    Support Us
-                </button>
-            </div>
-            
-            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                <div class="glass-panel p-4 rounded-lg">
-                    <i class="fas fa-gift text-neon-blue text-3xl mb-2"></i>
-                    <h3 class="font-jetbrains text-lg mb-2">Freemium Model</h3>
-                    <p class="text-gray-400">1 free use per tool</p>
-                </div>
-                <div class="glass-panel p-4 rounded-lg">
-                    <i class="fas fa-shield-alt text-neon-purple text-3xl mb-2"></i>
-                    <h3 class="font-jetbrains text-lg mb-2">Privacy First</h3>
-                    <p class="text-gray-400">Content never stored</p>
-                </div>
-                <div class="glass-panel p-4 rounded-lg">
-                    <i class="fas fa-bolt text-neon-blue text-3xl mb-2"></i>
-                    <h3 class="font-jetbrains text-lg mb-2">Lightning Fast</h3>
-                    <p class="text-gray-400">Global edge processing</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tools Section -->
-    <section id="tools" class="py-20 relative cyber-grid-bg">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="font-jetbrains text-4xl md:text-5xl font-bold mb-6 neon-text text-neon-blue">
-                    AI-POWERED TOOLS
-                </h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    Six professional-grade AI tools designed to revolutionize your content creation workflow
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="tools-grid">
-                <!-- Tools will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-20 relative">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="font-jetbrains text-4xl md:text-5xl font-bold mb-6 neon-text text-neon-purple">
-                    ABOUT NEXUSRANK PRO
-                </h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                    Empowering content creators with professional AI-powered SEO tools
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h3 class="font-jetbrains text-2xl font-bold mb-6 text-neon-blue">Our Mission</h3>
-                    <p class="text-gray-300 mb-6 leading-relaxed">
-                        NexusRank Pro is dedicated to democratizing access to professional-grade AI writing and SEO tools. 
-                        We believe that every content creator, regardless of their budget or technical expertise, 
-                        should have access to cutting-edge AI technology that can transform their content strategy.
+    <main>
+        <section class="hero" id="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        AI-Powered <span class="highlight">SEO Toolkit</span> for Modern Content Creators
+                    </h1>
+                    <p class="hero-description">
+                        Transform your content strategy with 6 professional AI tools powered by advanced AI. 
+                        Generate SEO articles, humanize AI text, detect AI content, and enhance your writing with cutting-edge technology.
                     </p>
-                    <p class="text-gray-300 leading-relaxed">
-                        Our platform combines the power of advanced AI with intuitive design to deliver 
-                        six essential tools that cover every aspect of content creation and optimization.
-                    </p>
+                    <div class="hero-buttons">
+                        <a href="#tools" class="btn btn-primary">
+                            <i class="fas fa-rocket"></i>
+                            Get Started Free
+                        </a>
+                        <a href="/pages/about.html" class="btn btn-secondary" target="_blank">
+                            <i class="fas fa-info-circle"></i>
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section class="tools" id="tools">
+            <div class="container">
+                <h2 class="section-title">
+                    Professional <span class="highlight">AI Tools</span>
+                </h2>
+                <p class="section-description">
+                    Six powerful AI tools designed for content creators, marketers, and businesses. 
+                    Get 1 free use per tool, upgrade to Pro for unlimited access.
+                </p>
+                
+                <div class="tools-grid">
+                    <!-- AI SEO Writer -->
+                    <div class="tool-card" data-tool="seo-write">
+                        <div class="tool-icon">
+                            <i class="fas fa-pen-nib"></i>
+                        </div>
+                        <h3 class="tool-title">AI SEO Writer</h3>
+                        <p class="tool-description">
+                            Generate comprehensive, SEO-optimized articles up to 10,000 words. 
+                            Perfect for blogs, landing pages, and content marketing.
+                        </p>
+                        <div class="tool-features">
+                            <span class="feature">5000+ Words</span>
+                            <span class="feature">SEO Optimized</span>
+                            <span class="feature">Human-like</span>
+                        </div>
+                    </div>
+
+                    <!-- AI Humanizer -->
+                    <div class="tool-card" data-tool="humanize">
+                        <div class="tool-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <h3 class="tool-title">AI Humanizer</h3>
+                        <p class="tool-description">
+                            Transform AI-generated text to sound 100% human-written. 
+                            Bypass AI detectors with natural language patterns.
+                        </p>
+                        <div class="tool-features">
+                            <span class="feature">100% Human</span>
+                            <span class="feature">Undetectable</span>
+                            <span class="feature">Natural Flow</span>
+                        </div>
+                    </div>
+
+                    <!-- AI Detector -->
+                    <div class="tool-card" data-tool="detect">
+                        <div class="tool-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="tool-title">AI Detector</h3>
+                        <p class="tool-description">
+                            Detect AI-generated content with high accuracy. 
+                            Get probability scores and detailed analysis reports.
+                        </p>
+                        <div class="tool-features">
+                            <span class="feature">High Accuracy</span>
+                            <span class="feature">Detailed Report</span>
+                            <span class="feature">Instant Results</span>
+                        </div>
+                    </div>
+
+                    <!-- Paraphrasing Tool -->
+                    <div class="tool-card" data-tool="paraphrase">
+                        <div class="tool-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3 class="tool-title">Paraphrasing Tool</h3>
+                        <p class="tool-description">
+                            Rewrite content while preserving meaning. 
+                            Create unique versions for plagiarism-free content.
+                        </p>
+                        <div class="tool-features">
+                            <span class="feature">100% Unique</span>
+                            <span class="feature">Same Meaning</span>
+                            <span class="feature">Natural Style</span>
+                        </div>
+                    </div>
+
+                    <!-- Grammar Checker -->
+                    <div class="tool-card" data-tool="grammar">
+                        <div class="tool-icon">
+                            <i class="fas fa-spell-check"></i>
+                        </div>
+                        <h3 class="tool-title">Grammar Checker</h3>
+                        <p class="tool-description">
+                            Fix grammar, spelling, and punctuation errors instantly. 
+                            Professional editing for flawless content.
+                        </p>
+                        <div class="tool-features">
+                            <span class="feature">Error-Free</span>
+                            <span class="feature">Professional</span>
+                            <span class="feature">Instant Fix</span>
+                        </div>
+                    </div>
+
+                    <!-- Text Improver -->
+                    <div class="tool-card" data-tool="improve">
+                        <div class="tool-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h3 class="tool-title">Text Improver</h3>
+                        <p class="tool-description">
+                            Enhance clarity, fluency, and professionalism. 
+                            Transform basic text into engaging, polished content.
+                        </p>
+                        <div class="tool-features">
+                            <span class="feature">Enhanced Clarity</span>
+                            <span class="feature">Professional</span>
+                            <span class="feature">Engaging</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">
+                    Why Choose <span class="highlight">NexusRank Pro</span>?
+                </h2>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Advanced AI</h3>
+                        <p>Powered by advanced AI models for superior content generation and analysis.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Freemium Model</h3>
+                        <p>Get 1 free use per tool to test our quality. Upgrade to Pro for unlimited access.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Privacy First</h3>
+                        <p>Your content is never stored. We process and return results without data retention.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Mobile Ready</h3>
+                        <p>Responsive design works perfectly on desktop, tablet, and mobile devices.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Lightning Fast</h3>
+                        <p>Powered by Cloudflare's global network for instant AI processing worldwide.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3>PWA Support</h3>
+                        <p>Install as a native app for offline access and enhanced user experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Tool Modal -->
+    <div class="modal" id="tool-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">AI Tool</h3>
+                <div class="modal-actions">
+                    <span class="usage-indicator">
+                        <i class="fas fa-bolt"></i>
+                        Uses left: <span id="usage-count">1</span>
+                    </span>
+                    <span class="modal-close">&times;</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="input-section">
+                    <label for="tool-input">Input Text</label>
+                    <textarea id="tool-input" rows="8" placeholder="Enter your text here..."></textarea>
+                    <div class="input-actions">
+                        <button type="button" id="clear-input" class="btn btn-small btn-secondary">
+                            <i class="fas fa-eraser"></i>
+                            Clear
+                        </button>
+                        <button type="button" id="process-btn" class="btn btn-primary">
+                            <i class="fas fa-magic"></i>
+                            <span>Process Text</span>
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="grid grid-cols-1 gap-6">
-                    <div class="glass-panel p-6 rounded-xl">
-                        <i class="fas fa-brain text-3xl text-neon-blue mb-4"></i>
-                        <h4 class="font-jetbrains text-lg font-bold mb-2">Advanced AI</h4>
-                        <p class="text-gray-400">Powered by cutting-edge AI models for superior content generation and analysis.</p>
+                <div class="output-section" id="output-section" style="display: none;">
+                    <label for="tool-output">Generated Content</label>
+                    <div class="output-container">
+                        <textarea id="tool-output" rows="12" readonly></textarea>
+                        <div class="loading-overlay" id="loading-overlay">
+                            <div class="loading-spinner"></div>
+                            <p>AI is processing your content...</p>
+                        </div>
                     </div>
-                    
-                    <div class="glass-panel p-6 rounded-xl">
-                        <i class="fas fa-shield-alt text-3xl text-neon-purple mb-4"></i>
-                        <h4 class="font-jetbrains text-lg font-bold mb-2">Privacy First</h4>
-                        <p class="text-gray-400">Your content is never stored. We process and return results without data retention.</p>
-                    </div>
-                    
-                    <div class="glass-panel p-6 rounded-xl">
-                        <i class="fas fa-bolt text-3xl text-neon-blue mb-4"></i>
-                        <h4 class="font-jetbrains text-lg font-bold mb-2">Lightning Fast</h4>
-                        <p class="text-gray-400">Powered by global edge network for instant AI processing worldwide.</p>
+                    <div class="output-actions">
+                        <button type="button" id="copy-output" class="btn btn-small btn-secondary">
+                            <i class="fas fa-copy"></i>
+                            Copy
+                        </button>
+                        <button type="button" id="download-output" class="btn btn-small btn-secondary">
+                            <i class="fas fa-download"></i>
+                            Download
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <!-- Pro Upgrade Modal -->
+    <div class="modal" id="pro-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Support Us</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="pro-content">
+                    <p>You've used this tool once. To keep using NexusRank Pro, please support us.</p>
+                    
+                    <div class="pro-actions">
+                        <button type="button" id="login-btn" class="btn btn-secondary">
+                            <i class="fas fa-lock"></i>
+                            Login (Pro Users)
+                        </button>
+                        <a href="https://www.patreon.com/posts/seo-tools-137228615?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link" 
+                           target="_blank" 
+                           class="btn btn-primary">
+                            <i class="fas fa-credit-card"></i>
+                            Get Unlimited Access
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
-    <footer class="bg-cyber-black border-t border-neon-blue/30 py-12">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <i class="fas fa-rocket text-neon-blue text-2xl"></i>
-                        <span class="font-jetbrains text-xl font-bold text-neon-blue">NexusRank Pro</span>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-rocket"></i>
+                        <span>NexusRank Pro</span>
                     </div>
-                    <p class="text-gray-400">Professional AI-powered SEO toolkit for modern content creators.</p>
+                    <p>Professional AI-powered SEO toolkit for modern content creators.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
                 </div>
                 
-                <div>
-                    <h4 class="font-jetbrains font-bold text-neon-purple mb-4">Tools</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#seo-writer" class="hover:text-neon-blue transition-colors">AI SEO Writer</a></li>
-                        <li><a href="#humanizer" class="hover:text-neon-blue transition-colors">AI Humanizer</a></li>
-                        <li><a href="#detector" class="hover:text-neon-blue transition-colors">AI Detector</a></li>
-                        <li><a href="#paraphraser" class="hover:text-neon-blue transition-colors">Paraphrasing Tool</a></li>
-                        <li><a href="#grammar" class="hover:text-neon-blue transition-colors">Grammar Checker</a></li>
-                        <li><a href="#improver" class="hover:text-neon-blue transition-colors">Text Improver</a></li>
-                    </ul>
+                <div class="footer-section">
+                    <h4>AI Tools</h4>
+                    <div class="footer-links">
+                        <a href="#" data-tool="seo-write">AI SEO Writer</a>
+                        <a href="#" data-tool="humanize">AI Humanizer</a>
+                        <a href="#" data-tool="detect">AI Detector</a>
+                        <a href="#" data-tool="paraphrase">Paraphrasing Tool</a>
+                        <a href="#" data-tool="grammar">Grammar Checker</a>
+                        <a href="#" data-tool="improve">Text Improver</a>
+                    </div>
                 </div>
                 
-                <div>
-                    <h4 class="font-jetbrains font-bold text-neon-purple mb-4">Company</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="/pages/about.html" class="hover:text-neon-blue transition-colors">About Us</a></li>
-                        <li><a href="/pages/contact.html" class="hover:text-neon-blue transition-colors">Contact</a></li>
-                        <li><a href="/pages/privacy.html" class="hover:text-neon-blue transition-colors">Privacy Policy</a></li>
-                        <li><a href="/pages/terms.html" class="hover:text-neon-blue transition-colors">Terms of Service</a></li>
-                        <li><a href="/pages/cookie-policy.html" class="hover:text-neon-blue transition-colors">Cookie Policy</a></li>
-                    </ul>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <div class="footer-links">
+                        <a href="/pages/about.html" target="_blank">About Us</a>
+                        <a href="/pages/contact.html" target="_blank">Contact</a>
+                        <a href="/pages/privacy.html" target="_blank">Privacy Policy</a>
+                        <a href="/pages/terms.html" target="_blank">Terms of Service</a>
+                    </div>
                 </div>
                 
-                <div>
-                    <h4 class="font-jetbrains font-bold text-neon-purple mb-4">Support</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="https://www.patreon.com/posts/seo-tools-137228615?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link" target="_blank" rel="noopener noreferrer" class="hover:text-neon-blue transition-colors">Support on Patreon</a></li>
-                        <li><a href="/pages/contact.html" class="hover:text-neon-blue transition-colors">Help Center</a></li>
-                        <li><a href="/pages/contact.html" class="hover:text-neon-blue transition-colors">API Documentation</a></li>
-                        <li><a href="/pages/contact.html" class="hover:text-neon-blue transition-colors">Status Page</a></li>
-                    </ul>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <div class="footer-links">
+                        <a href="/pages/contact.html" target="_blank">Help Center</a>
+                        <a href="/pages/contact.html" target="_blank">Contact Support</a>
+                        <a href="/pages/cookie-policy.html" target="_blank">Cookie Policy</a>
+                    </div>
                 </div>
             </div>
             
-            <div class="border-t border-neon-blue/30 pt-8 text-center">
-                <p class="text-gray-400">
-                    &copy; 2025 NexusRank Pro. All rights reserved. Powered by advanced AI technology.
-                </p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 NexusRank Pro. All rights reserved. No false claims made.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Modals -->
-    <div id="tool-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-panel border-neon-blue/30 max-w-4xl max-h-[90vh] w-full rounded-xl overflow-hidden">
-            <!-- Modal content will be populated by JavaScript -->
-        </div>
-    </div>
-
-    <div id="login-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-panel border-neon-blue/30 max-w-md w-full rounded-xl p-6">
-            <h3 class="font-jetbrains text-xl font-bold neon-text text-neon-blue mb-4">Pro Login</h3>
-            <form id="login-form" class="space-y-4">
-                <div>
-                    <label class="block font-jetbrains text-sm font-bold mb-2 text-neon-blue">Username</label>
-                    <input type="text" id="login-username" class="cyber-input w-full" placeholder="Enter username">
-                </div>
-                <div>
-                    <label class="block font-jetbrains text-sm font-bold mb-2 text-neon-blue">Password</label>
-                    <input type="password" id="login-password" class="cyber-input w-full" placeholder="Enter password">
-                </div>
-                
-                <div class="bg-dark-gray p-4 rounded-lg border border-neon-purple/30">
-                    <p class="text-xs text-gray-400 mb-2">
-                        <i class="fas fa-info-circle mr-1"></i>
-                        Pro credentials are provided after Patreon payment
-                    </p>
-                    <p class="text-sm text-neon-purple">Contact support to get your access credentials</p>
-                </div>
-                <button type="submit" class="neon-button w-full py-3 rounded-lg font-jetbrains">
-                    <i class="fas fa-sign-in-alt mr-2"></i>Login to Pro
-                </button>
-            </form>
-            <button id="close-login-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    </div>
-
-    <div id="support-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-panel border-neon-purple/30 max-w-md w-full rounded-xl p-6 text-center">
-            <h3 class="font-jetbrains text-xl font-bold neon-text text-neon-purple mb-4">Support NexusRank Pro</h3>
-            <i class="fas fa-heart text-6xl text-neon-purple mb-6"></i>
-            <h4 class="font-jetbrains text-lg mb-4">Free Usage Limit Reached!</h4>
-            <p class="text-gray-400 mb-6">
-                You've used your free trial. Choose an option below to continue using our AI tools.
-            </p>
-            
-            <div class="space-y-4 mb-6">
-                <a href="https://www.patreon.com/posts/seo-tools-137228615?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   class="neon-button inline-block px-8 py-3 rounded-lg font-jetbrains w-full no-underline">
-                    <i class="fab fa-patreon mr-2"></i>
-                    Get Unlimited Access
-                </a>
-                
-                <button onclick="hideModal('support-modal'); showModal('login-modal')" 
-                        class="purple-button px-8 py-3 rounded-lg font-jetbrains w-full">
-                    <i class="fas fa-user mr-2"></i>
-                    Already Have Pro? Login
-                </button>
-            </div>
-            
-            <div class="text-xs text-gray-500">
-                <p>• Unlimited tool usage</p>
-                <p>• Priority support</p>
-                <p>• Early access to new features</p>
-            </div>
-            
-            <button id="close-support-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- JavaScript -->
+    <!-- Scripts -->
     <script src="/js/app.js"></script>
     
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(function(registration) {
-                    console.log('SW registration successful');
-                })
-                .catch(function(error) {
-                    console.log('SW registration failed: ', error);
-                });
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
         }
     </script>
 </body>
