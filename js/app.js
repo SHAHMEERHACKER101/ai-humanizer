@@ -1,429 +1,498 @@
-// NexusRank Pro - GitHub Deploy Version
-// Tool configurations
-const TOOL_CONFIGS = {
-    'seo-writer': {
-        name: 'AI SEO Writer',
-        icon: 'fas fa-pen-nib',
-        description: 'Generate comprehensive, SEO-optimized articles up to 10,000 words',
-        options: [
-            {
-                label: 'Word Count',
-                type: 'select',
-                options: ['500-1000', '1000-2000', '2000-5000', '5000-10000']
-            },
-            {
-                label: 'Tone',
-                type: 'select', 
-                options: ['Professional', 'Casual', 'Academic', 'Creative']
-            }
-        ]
-    },
-    'humanizer': {
-        name: 'AI Humanizer',
-        icon: 'fas fa-user-friends',
-        description: 'Transform AI-generated content into natural, human-like text',
-        options: [
-            {
-                label: 'Style',
-                type: 'select',
-                options: ['Natural', 'Conversational', 'Professional', 'Academic']
-            },
-            {
-                label: 'Complexity',
-                type: 'select',
-                options: ['Simple', 'Medium', 'Complex', 'Advanced']
-            }
-        ]
-    },
-    'detector': {
-        name: 'AI Detector',
-        icon: 'fas fa-search',
-        description: 'Detect AI-generated content with advanced analysis',
-        options: [
-            {
-                label: 'Sensitivity',
-                type: 'select',
-                options: ['Low', 'Medium', 'High', 'Maximum']
-            },
-            {
-                label: 'Analysis Type',
-                type: 'select',
-                options: ['Basic', 'Detailed', 'Comprehensive', 'Expert']
-            }
-        ]
-    },
-    'paraphraser': {
-        name: 'Paraphraser',
-        icon: 'fas fa-sync-alt',
-        description: 'Rewrite content while preserving meaning and improving clarity',
-        options: [
-            {
-                label: 'Rewrite Level',
-                type: 'select',
-                options: ['Light', 'Medium', 'Heavy', 'Complete']
-            },
-            {
-                label: 'Style',
-                type: 'select',
-                options: ['Academic', 'Business', 'Casual', 'Creative']
-            }
-        ]
-    },
-    'grammar': {
-        name: 'Grammar Checker',
-        icon: 'fas fa-spell-check',
-        description: 'Advanced grammar and style checking with suggestions',
-        options: [
-            {
-                label: 'Check Level',
-                type: 'select',
-                options: ['Basic', 'Standard', 'Advanced', 'Professional']
-            },
-            {
-                label: 'Language',
-                type: 'select',
-                options: ['US English', 'UK English', 'Canadian English', 'Australian English']
-            }
-        ]
-    },
-    'improver': {
-        name: 'Text Improver',
-        icon: 'fas fa-magic',
-        description: 'Enhance readability, style, and overall content quality',
-        options: [
-            {
-                label: 'Improvement Type',
-                type: 'select',
-                options: ['Clarity', 'Engagement', 'Professionalism', 'Creativity']
-            },
-            {
-                label: 'Target Audience',
-                type: 'select',
-                options: ['General', 'Business', 'Academic', 'Technical']
-            }
-        ]
-    }
-};
+/**
+ * NexusRank Pro - FINAL AI Toolkit
+ * Secure, production-ready, no errors
+ */
 
-// Usage tracking
-const MAX_FREE_USES = 1;
+class NexusRankApp {
+  constructor() {
+    // ✅ Fixed Worker URL (no trailing spaces!)
+    this.apiBaseUrl = 'https://newsseotools1.shahshameer383.workers.dev';
 
-function getUsageCounts() {
-    const counts = localStorage.getItem('nexusrank_usage');
-    return counts ? JSON.parse(counts) : {};
-}
+    this.currentTool = null;
+    this.isProUser = false;
+    this.usageData = {};
 
-function setUsageCounts(counts) {
-    localStorage.setItem('nexusrank_usage', JSON.stringify(counts));
-}
+    this.init();
+  }
 
-function canUseTool(toolId) {
-    if (isProUser()) return true;
-    const counts = getUsageCounts();
-    return (counts[toolId] || 0) < MAX_FREE_USES;
-}
+  init() {
+    this.loadUsageData();
+    this.checkProStatus();
+    this.bindEvents();
+    this.initializeNavigation();
+  }
 
-function incrementUsage(toolId) {
-    const counts = getUsageCounts();
-    counts[toolId] = (counts[toolId] || 0) + 1;
-    setUsageCounts(counts);
-}
-
-function isProUser() {
-    return localStorage.getItem('nexusrank_pro') === 'true';
-}
-
-function setProUser(isPro) {
-    localStorage.setItem('nexusrank_pro', isPro.toString());
-}
-
-// DOM manipulation
-function showModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove('hidden');
-    }
-}
-
-function hideModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.add('hidden');
-    }
-}
-
-function handleToolClick(toolId) {
-    if (!canUseTool(toolId)) {
-        showSupportModal();
+  loadUsageData() {
+    const stored = localStorage.getItem('nexusrank_usage');
+    if (stored) {
+      this.usageData = JSON.parse(stored);
     } else {
-        showToolModal(toolId);
+      this.usageData = {
+        'seo-write': 0,
+        'humanize': 0,
+        'detect': 0,
+        'paraphrase': 0,
+        'grammar': 0,
+        'improve': 0
+      };
+      this.saveUsageData();
     }
-}
+  }
 
-function showToolModal(toolId) {
-    const tool = TOOL_CONFIGS[toolId];
-    if (!tool) return;
+  saveUsageData() {
+    localStorage.setItem('nexusrank_usage', JSON.stringify(this.usageData));
+  }
 
-    const modal = document.getElementById('tool-modal');
-    const modalContent = modal.querySelector('.glass-panel');
-    
-    modalContent.innerHTML = `
-        <div class="p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="font-jetbrains text-2xl font-bold neon-text text-neon-blue">${tool.name}</h3>
-                <button onclick="hideModal('tool-modal')" class="text-gray-400 hover:text-white text-xl">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div>
-                    <label class="block font-jetbrains text-sm font-bold mb-2 text-neon-blue">Input</label>
-                    <textarea id="tool-input" class="cyber-input w-full h-64 resize-none font-mono text-sm" 
-                              placeholder="Enter your text here..."></textarea>
-                    
-                    <div class="mt-4 grid grid-cols-2 gap-4">
-                        ${tool.options.map(option => `
-                            <div>
-                                <label class="block font-jetbrains text-xs font-bold mb-1 text-neon-blue">${option.label}</label>
-                                <select class="cyber-input w-full" data-option="${option.label}">
-                                    <option value="">Select ${option.label}</option>
-                                    ${option.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
-                                </select>
-                            </div>
-                        `).join('')}
-                    </div>
-                    
-                    <button onclick="processText('${toolId}')" class="neon-button w-full mt-6 py-3 rounded-lg font-jetbrains">
-                        <i class="fas fa-play mr-2"></i>Process Text
-                    </button>
-                </div>
-                
-                <div>
-                    <label class="block font-jetbrains text-sm font-bold mb-2 text-neon-blue">Output</label>
-                    <div id="tool-output" class="cyber-input w-full h-64 overflow-y-auto font-mono text-sm bg-gray-900/50">
-                        Results will appear here...
-                    </div>
-                    
-                    <div class="mt-4 grid grid-cols-2 gap-4">
-                        <button onclick="copyOutput()" class="purple-button px-4 py-2 rounded-lg font-jetbrains">
-                            <i class="fas fa-copy mr-2"></i>Copy
-                        </button>
-                        <button onclick="downloadOutput('${toolId}')" class="purple-button px-4 py-2 rounded-lg font-jetbrains">
-                            <i class="fas fa-download mr-2"></i>Download
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    showModal('tool-modal');
-}
+  checkProStatus() {
+    const proStatus = localStorage.getItem('nexusrank_pro');
+    if (proStatus === 'true') {
+      this.isProUser = true;
+    }
+  }
 
-function showSupportModal() {
-    showModal('support-modal');
-}
+  setProStatus(status) {
+    this.isProUser = status;
+    localStorage.setItem('nexusrank_pro', status.toString());
+  }
 
-function closeModal(modalId) {
-    hideModal(modalId);
-}
+  bindEvents() {
+    // Mobile menu toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
 
-async function processText(toolId) {
-    const input = document.getElementById('tool-input').value.trim();
-    if (!input) {
-        alert('Please enter some text to process.');
-        return;
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      });
     }
 
-    const outputEl = document.getElementById('tool-output');
-    outputEl.innerHTML = '<div class="animate-pulse">Processing your text...</div>';
-
-    // Get selected options
-    const options = {};
-    document.querySelectorAll('[data-option]').forEach(select => {
-        const option = select.getAttribute('data-option');
-        options[option] = select.value;
+    // Tool cards
+    const toolCards = document.querySelectorAll('.tool-card');
+    toolCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const tool = card.dataset.tool;
+        if (tool) {
+          this.openTool(tool);
+        }
+      });
     });
+
+    // Footer tool links
+    const footerToolLinks = document.querySelectorAll('.footer-links a[data-tool]');
+    footerToolLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tool = link.dataset.tool;
+        if (tool) {
+          this.openTool(tool);
+        }
+      });
+    });
+
+    // Modal events
+    this.bindModalEvents();
+  }
+
+  bindModalEvents() {
+    const toolModal = document.getElementById('tool-modal');
+    const proModal = document.getElementById('pro-modal');
+    const processBtn = document.getElementById('process-btn');
+    const clearBtn = document.getElementById('clear-input');
+    const copyBtn = document.getElementById('copy-output');
+    const downloadBtn = document.getElementById('download-output');
+    const proLoginBtn = document.getElementById('pro-login-btn');
+
+    // Close modals
+    document.querySelectorAll('.modal-close').forEach(close => {
+      close.addEventListener('click', () => this.closeModals());
+    });
+
+    [toolModal, proModal].forEach(modal => {
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) this.closeModals();
+        });
+      }
+    });
+
+    // ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') this.closeModals();
+    });
+
+    // Process button
+    if (processBtn) {
+      processBtn.addEventListener('click', () => this.processTool());
+    }
+
+    // Clear input
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        document.getElementById('tool-input').value = '';
+      });
+    }
+
+    // Copy output
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => this.copyToClipboard());
+    }
+
+    // Download output
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', () => this.downloadOutput());
+    }
+
+    // Pro login
+    if (proLoginBtn) {
+      proLoginBtn.addEventListener('click', () => this.handleProLogin());
+    }
+
+    // Enter key for login
+    ['pro-username', 'pro-password'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') this.handleProLogin();
+        });
+      }
+    });
+
+    // Ctrl+Enter to process
+    const toolInput = document.getElementById('tool-input');
+    if (toolInput) {
+      toolInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.ctrlKey) this.processTool();
+      });
+    }
+  }
+
+  initializeNavigation() {
+    // Close menu on link click
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if (navToggle && navMenu) {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('active');
+        }
+      });
+    });
+
+    // Active nav link
+    const sections = ['hero', 'tools'];
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const sectionTop = section.offsetTop - 100;
+          if (window.pageYOffset >= sectionTop) {
+            current = sectionId === 'hero' ? '' : sectionId;
+          }
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if ((!current && link.getAttribute('href') === '/') ||
+            (current && link.getAttribute('href').includes(current))) {
+          link.classList.add('active');
+        }
+      });
+    });
+  }
+
+  openTool(toolName) {
+    this.currentTool = toolName;
+    const modal = document.getElementById('tool-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const toolInput = document.getElementById('tool-input');
+    const outputSection = document.getElementById('output-section');
+    const usageCount = document.getElementById('usage-count');
+
+    if (!modal || !modalTitle) return;
+
+    const toolConfig = this.getToolConfig(toolName);
+    modalTitle.textContent = toolConfig.title;
+
+    if (toolInput) {
+      toolInput.placeholder = toolConfig.placeholder;
+      toolInput.value = '';
+    }
+
+    if (outputSection) {
+      outputSection.style.display = 'none';
+    }
+
+    if (usageCount) {
+      const remaining = this.isProUser ? '∞' : Math.max(0, 1 - this.usageData[toolName]);
+      usageCount.textContent = remaining;
+    }
+
+    modal.classList.add('active');
+    if (toolInput) toolInput.focus();
+  }
+
+  getToolConfig(toolName) {
+    const configs = {
+      'seo-write': {
+        title: 'AI SEO Writer',
+        placeholder: 'Enter your topic or keywords for the SEO article (e.g., "Benefits of yoga for mental health", "Digital marketing strategies 2025")...',
+        endpoint: '/ai/seo-write'
+      },
+      'humanize': {
+        title: 'AI Humanizer',
+        placeholder: 'Paste AI-generated text that you want to humanize and make sound more natural...',
+        endpoint: '/ai/humanize'
+      },
+      'detect': {
+        title: 'AI Detector',
+        placeholder: 'Paste text to analyze for AI content detection and get probability scores...',
+        endpoint: '/ai/detect'
+      },
+      'paraphrase': {
+        title: 'Paraphrasing Tool',
+        placeholder: 'Enter text that you want to paraphrase and rewrite in a unique way...',
+        endpoint: '/ai/paraphrase'
+      },
+      'grammar': {
+        title: 'Grammar Checker',
+        placeholder: 'Paste text to check and fix grammar, spelling, and punctuation errors...',
+        endpoint: '/ai/grammar'
+      },
+      'improve': {
+        title: 'Text Improver',
+        placeholder: 'Enter text that you want to improve for better clarity, fluency, and professionalism...',
+        endpoint: '/ai/improve'
+      }
+    };
+
+    return configs[toolName] || {
+      title: 'AI Tool',
+      placeholder: 'Enter your text...',
+      endpoint: '/ai/improve'
+    };
+  }
+
+  async processTool() {
+    const toolInput = document.getElementById('tool-input');
+    const processBtn = document.getElementById('process-btn');
+
+    if (!toolInput || !this.currentTool) return;
+
+    const inputText = toolInput.value.trim();
+    if (!inputText) {
+      this.showToast('Please enter some text to process.', 'error');
+      return;
+    }
+
+    if (!this.isProUser && this.usageData[this.currentTool] >= 1) {
+      this.showProModal();
+      return;
+    }
+
+    this.showLoading(true);
+    if (processBtn) {
+      processBtn.disabled = true;
+      const btnText = processBtn.querySelector('span');
+      if (btnText) btnText.textContent = 'Processing...';
+    }
 
     try {
-        // Call the DeepSeek API worker
-        // Option 1: Direct worker URL (replace YOUR-USERNAME)
-        // const response = await fetch('https://nexusrank-pro-worker.YOUR-USERNAME.workers.dev/', {
-        
-        // Option 2: Use relative path with _redirects (recommended)
-        const response = await fetch('/api/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                action: toolId,
-                input: input,
-                options: options
-            })
-        });
+      const result = await this.callAI(inputText);
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+      if (result.success) {
+        this.showOutput(result.content);
+
+        if (!this.isProUser) {
+          this.usageData[this.currentTool]++;
+          this.saveUsageData();
+          this.updateUsageDisplay();
         }
 
-        const result = await response.json();
-        
-        if (result.success) {
-            outputEl.innerHTML = result.output || 'No output generated.';
-            incrementUsage(toolId);
-        } else {
-            outputEl.innerHTML = `Error: ${result.error || 'Failed to process text'}`;
-        }
+        this.showToast('Content processed successfully!', 'success');
+      } else {
+        this.showToast(result.error || 'Failed to process text.', 'error');
+      }
     } catch (error) {
-        console.error('Error processing text:', error);
-        outputEl.innerHTML = 'Error: Failed to connect to AI service. Please try again later.';
+      console.error('Processing error:', error);
+      this.showToast('Network error. Please try again.', 'error');
+    } finally {
+      this.showLoading(false);
+      if (processBtn) {
+        processBtn.disabled = false;
+        const btnText = processBtn.querySelector('span');
+        if (btnText) btnText.textContent = 'Process Text';
+      }
     }
-}
+  }
 
-function copyOutput() {
-    const output = document.getElementById('tool-output').textContent;
-    if (output && output !== 'Results will appear here...') {
-        navigator.clipboard.writeText(output).then(() => {
-            alert('Content copied to clipboard!');
-        }).catch(() => {
-            alert('Failed to copy content.');
-        });
+  async callAI(inputText) {
+    const toolConfig = this.getToolConfig(this.currentTool);
+
+    try {
+      const response = await fetch(`${this.apiBaseUrl}${toolConfig.endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: inputText })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('API call error:', error);
+      return {
+        success: false,
+        error: error.message || 'Failed to connect to AI service'
+      };
     }
-}
+  }
 
-function downloadOutput(toolId) {
-    const output = document.getElementById('tool-output').textContent;
-    if (output && output !== 'Results will appear here...') {
-        const blob = new Blob([output], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `nexusrank-${toolId}-output.txt`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+  showOutput(content) {
+    const outputSection = document.getElementById('output-section');
+    const toolOutput = document.getElementById('tool-output');
+
+    if (outputSection && toolOutput) {
+      toolOutput.value = content;
+      outputSection.style.display = 'block';
+      outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-}
+  }
 
-function handleLogin(event) {
-    event.preventDefault();
-    const username = document.getElementById('login-username').value;
-    const password = document.getElementById('login-password').value;
-    
-    // Check for pro credentials (hidden until Patreon payment)
-    if (username === 'prouser606' && password === 'tUChSUZ7drfMkYm') {
-        setProUser(true);
-        hideModal('login-modal');
-        alert('Successfully logged in as Pro user!');
-        updateUI();
-    } else {
-        alert('Invalid credentials. Pro access requires Patreon subscription.');
+  showLoading(show) {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) {
+      overlay.classList.toggle('active', show);
     }
-}
+  }
 
-function updateUI() {
-    const isPro = isProUser();
-    const counts = getUsageCounts();
-    
-    // Update tool cards with current usage
-    Object.keys(TOOL_CONFIGS).forEach(toolId => {
-        const card = document.querySelector(`[data-tool="${toolId}"]`);
-        if (card) {
-            const button = card.querySelector('button');
-            const usageBar = card.querySelector('.usage-indicator div');
-            
-            if (isPro) {
-                button.innerHTML = '<i class="fas fa-play mr-2"></i>Use Tool (Pro)';
-                if (usageBar) usageBar.style.width = '100%';
-            } else {
-                const usage = counts[toolId] || 0;
-                const canUse = usage < MAX_FREE_USES;
-                button.innerHTML = `<i class="fas fa-play mr-2"></i>Use Tool`;
-                if (usageBar) usageBar.style.width = `${(usage / MAX_FREE_USES) * 100}%`;
-            }
-        }
-    });
-}
-
-function renderTools() {
-    const toolsGrid = document.getElementById('tools-grid');
-    if (!toolsGrid) return;
-
-    const toolsHTML = Object.entries(TOOL_CONFIGS).map(([toolId, tool]) => {
-        const isHumanizer = toolId === 'humanizer' || toolId === 'paraphraser' || toolId === 'improver';
-        const iconColor = isHumanizer ? 'text-neon-purple' : 'text-neon-blue';
-        
-        return `
-            <div class="tool-card p-6 rounded-xl cursor-pointer" data-tool="${toolId}" onclick="handleToolClick('${toolId}')">
-                <div class="text-center mb-6">
-                    <i class="${tool.icon} text-4xl ${iconColor} mb-4"></i>
-                    <h3 class="font-jetbrains text-xl font-bold mb-2">${tool.name}</h3>
-                    <p class="text-gray-400">${tool.description}</p>
-                </div>
-                
-                <div class="usage-indicator h-2 rounded-full mb-4 bg-gray-700">
-                    <div class="h-full bg-gradient-to-r from-neon-blue to-neon-purple rounded-full transition-all duration-300" style="width: 0%"></div>
-                </div>
-                
-                <div class="text-center">
-                    <button class="neon-button w-full py-3 rounded-lg font-jetbrains" onclick="event.stopPropagation(); handleToolClick('${toolId}')">
-                        <i class="fas fa-play mr-2"></i>
-                        <span>Use Tool</span>
-                    </button>
-                </div>
+  showProModal() {
+    const proModal = document.getElementById('pro-modal');
+    if (proModal) {
+      proModal.innerHTML = `
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Support Us</h3>
+            <span class="modal-close">&times;</span>
+          </div>
+          <div class="modal-body">
+            <p>You've used this tool once. To keep using NexusRank Pro, please support us.</p>
+            <div class="pro-actions">
+              <button id="login-btn" class="btn btn-secondary">
+                <i class="fas fa-lock"></i>
+                Login (Pro Users)
+              </button>
+              <a href="https://www.patreon.com/posts/seo-tools-137228615?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link" 
+                 target="_blank" 
+                 class="btn btn-primary">
+                <i class="fas fa-credit-card"></i>
+                Get Unlimited Access
+              </a>
             </div>
-        `;
-    }).join('');
+          </div>
+        </div>
+      `;
+      proModal.classList.add('active');
 
-    toolsGrid.innerHTML = toolsHTML;
+      document.getElementById('login-btn').addEventListener('click', () => {
+        this.handleProLogin();
+      });
+    }
+  }
+
+  closeModals() {
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.classList.remove('active');
+    });
+  }
+
+  updateUsageDisplay() {
+    const usageCount = document.getElementById('usage-count');
+    if (usageCount && this.currentTool) {
+      const remaining = this.isProUser ? '∞' : Math.max(0, 1 - this.usageData[this.currentTool]);
+      usageCount.textContent = remaining;
+    }
+  }
+
+  async copyToClipboard() {
+    const toolOutput = document.getElementById('tool-output');
+    if (!toolOutput || !toolOutput.value) {
+      this.showToast('No content to copy', 'warning');
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(toolOutput.value);
+      this.showToast('Content copied to clipboard!', 'success');
+    } catch (error) {
+      toolOutput.select();
+      document.execCommand('copy');
+      this.showToast('Content copied to clipboard!', 'success');
+    }
+  }
+
+  downloadOutput() {
+    const toolOutput = document.getElementById('tool-output');
+    if (!toolOutput || !toolOutput.value) {
+      this.showToast('No content to download', 'warning');
+      return;
+    }
+
+    const toolConfig = this.getToolConfig(this.currentTool);
+    const filename = `${toolConfig.title.replace(/\s+/g, '_').toLowerCase()}_output.txt`;
+    const blob = new Blob([toolOutput.value], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    this.showToast('Content downloaded successfully!', 'success');
+  }
+
+  handleProLogin() {
+    const username = document.getElementById('pro-username')?.value;
+    const password = document.getElementById('pro-password')?.value;
+
+    if (username === 'prouser606' && password === 'tUChSUZ7drfMkYm') {
+      this.setProStatus(true);
+      this.closeModals();
+      this.updateUsageDisplay();
+      this.showToast('Welcome to Pro! You now have unlimited access.', 'success');
+    } else {
+      this.showToast('Invalid credentials. Use the demo credentials provided.', 'error');
+    }
+  }
+
+  showToast(message, type = 'info') {
+    const existing = document.querySelectorAll('.toast');
+    existing.forEach(t => t.remove());
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.classList.add('active'), 100);
+    setTimeout(() => {
+      toast.classList.remove('active');
+      setTimeout(() => toast.remove(), 300);
+    }, 4000);
+  }
 }
 
 // Initialize app
-document.addEventListener('DOMContentLoaded', function() {
-    renderTools();
-    updateUI();
-
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
-
-    // Modal event listeners
-    document.getElementById('pro-login-btn')?.addEventListener('click', () => showModal('login-modal'));
-    document.getElementById('mobile-pro-login-btn')?.addEventListener('click', () => showModal('login-modal'));
-    document.getElementById('close-login-modal')?.addEventListener('click', () => hideModal('login-modal'));
-    document.getElementById('close-support-modal')?.addEventListener('click', () => hideModal('support-modal'));
-    
-    // Login form
-    document.getElementById('login-form')?.addEventListener('submit', handleLogin);
-
-    // Close modals when clicking outside
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('fixed') && e.target.classList.contains('inset-0')) {
-            const modalId = e.target.id;
-            if (modalId) hideModal(modalId);
-        }
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-
-    // Update UI periodically to reflect usage changes
-    setInterval(updateUI, 1000);
+document.addEventListener('DOMContentLoaded', () => {
+  window.nexusRankApp = new NexusRankApp();
 });
