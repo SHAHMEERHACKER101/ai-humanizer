@@ -1,0 +1,38 @@
+{
+  "name": "nexusrank-pro",
+  "version": "1.0.0",
+  "description": "Professional AI-Powered SEO Toolkit",
+  "main": "index.html",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy-worker": "wrangler deploy backend/worker.js",
+    "preview": "wrangler dev backend/worker.js",
+    "serve": "python -m http.server 8000",
+    "build": "echo 'No build step required for static site'",
+    "start": "npm run serve"
+  },
+  "keywords": [
+    "AI",
+    "SEO",
+    "content",
+    "writing",
+    "tools",
+    "automation",
+    "deepseek",
+    "cloudflare"
+  ],
+  "author": "NexusRank Pro",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/nexusrank-pro.git"
+  },
+  "homepage": "https://nexusrankpro.pages.dev",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

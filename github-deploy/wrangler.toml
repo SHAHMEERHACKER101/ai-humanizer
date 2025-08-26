@@ -1,0 +1,17 @@
+name = "nexusrank-pro-worker"
+main = "backend/worker.js"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Environment variables (set using wrangler secret put DEEPSEEK_API_KEY)
+[vars]
+# Add any non-secret environment variables here
+
+# Limits and settings
+[limits]
+cpu_ms = 30000
+
+# Routes for custom domains (optional)
+# routes = [
+#   { pattern = "yourdomain.com/api/*", zone_name = "yourdomain.com" }
+# ]

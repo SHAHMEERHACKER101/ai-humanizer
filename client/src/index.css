@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Segoe+UI:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(200, 6.6667%, 91.1765%);
+  --card: hsl(0, 0%, 6.6667%);
+  --card-foreground: hsl(0, 0%, 85.0980%);
+  --popover: hsl(0, 0%, 0%);
+  --popover-foreground: hsl(200, 6.6667%, 91.1765%);
+  --primary: hsl(180, 100%, 50%);
+  --primary-foreground: hsl(0, 0%, 0%);
+  --secondary: hsl(270, 50%, 70%);
+  --secondary-foreground: hsl(0, 0%, 0%);
+  --muted: hsl(0, 0%, 9.4118%);
+  --muted-foreground: hsl(210, 3.3898%, 46.2745%);
+  --accent: hsl(180, 100%, 50%);
+  --accent-foreground: hsl(0, 0%, 0%);
+  --destructive: hsl(356.3033, 90.5579%, 54.3137%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(180, 100%, 50%, 0.3);
+  --input: hsl(0, 0%, 0%, 0.8);
+  --ring: hsl(180, 100%, 50%);
+  --neon-blue: hsl(180, 100%, 50%);
+  --neon-purple: hsl(270, 50%, 70%);
+  --electric-blue: hsl(210, 100%, 50%);
+  --cyber-black: hsl(0, 0%, 0%);
+  --cyber-gray: hsl(0, 0%, 6.6667%);
+  --dark-gray: hsl(0, 0%, 10.1961%);
+  --font-jetbrains: 'JetBrains Mono', monospace;
+  --font-segoe: 'Segoe UI', sans-serif;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-[var(--font-segoe)] antialiased;
+    background: linear-gradient(135deg, hsl(0, 0%, 0%) 0%, hsl(0, 0%, 6.6667%) 50%, hsl(0, 0%, 0%) 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .cyber-grid-bg {
+    background-image: 
+      linear-gradient(hsla(180, 100%, 50%, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsla(180, 100%, 50%, 0.1) 1px, transparent 1px),
+      radial-gradient(ellipse at center, hsla(180, 100%, 50%, 0.05) 0%, transparent 70%);
+    background-size: 50px 50px, 50px 50px, 100% 100%;
+    animation: grid-move 20s linear infinite;
+  }
+  
+  .neon-text {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+  
+  .glass-panel {
+    backdrop-filter: blur(10px);
+    background: hsla(0, 0%, 0%, 0.7);
+    border: 1px solid hsla(180, 100%, 50%, 0.3);
+  }
+  
+  .tool-card {
+    background: linear-gradient(145deg, hsla(0, 0%, 0%, 0.8), hsla(0, 0%, 6.6667%, 0.9));
+    border: 1px solid hsla(180, 100%, 50%, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+  }
+  
+  .tool-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 
+      0 20px 40px hsla(180, 100%, 50%, 0.3),
+      0 0 20px hsla(270, 50%, 70%, 0.2),
+      inset 0 0 20px hsla(180, 100%, 50%, 0.1);
+    border-color: hsla(180, 100%, 50%, 0.8);
+  }
+  
+  .neon-button {
+    background: linear-gradient(45deg, hsla(180, 100%, 50%, 0.1), hsla(270, 50%, 70%, 0.1));
+    border: 2px solid hsl(180, 100%, 50%);
+    color: hsl(180, 100%, 50%);
+    text-shadow: 0 0 10px currentColor;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .neon-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsla(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .neon-button:hover::before {
+    left: 100%;
+  }
+  
+  .neon-button:hover {
+    box-shadow: 
+      0 0 20px hsl(180, 100%, 50%),
+      0 0 40px hsl(180, 100%, 50%),
+      inset 0 0 20px hsla(180, 100%, 50%, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .cyber-input {
+    background: hsla(0, 0%, 0%, 0.8);
+    border: 1px solid hsla(180, 100%, 50%, 0.3);
+    color: hsl(180, 100%, 50%);
+    transition: all 0.3s ease;
+  }
+  
+  .cyber-input:focus {
+    border-color: hsl(180, 100%, 50%);
+    box-shadow: 0 0 20px hsla(180, 100%, 50%, 0.5);
+    outline: none;
+  }
+  
+  .modal-backdrop {
+    backdrop-filter: blur(10px);
+    background: hsla(0, 0%, 0%, 0.8);
+  }
+  
+  .usage-indicator {
+    background: linear-gradient(90deg, hsl(180, 100%, 50%), hsl(270, 50%, 70%));
+    background-size: 200% 100%;
+    animation: cyber-pulse 2s ease-in-out infinite;
+  }
+  
+  .purple-button {
+    border: 2px solid hsl(270, 50%, 70%);
+    color: hsl(270, 50%, 70%);
+  }
+  
+  .purple-button:hover {
+    background: hsl(270, 50%, 70%);
+    color: hsl(0, 0%, 0%);
+  }
+}
+
+@layer utilities {
+  @keyframes pulse-glow {
+    from { box-shadow: 0 0 20px hsl(180, 100%, 50%); }
+    to { box-shadow: 0 0 40px hsl(180, 100%, 50%), 0 0 60px hsl(180, 100%, 50%); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes grid-move {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+  }
+  
+  @keyframes cyber-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-grid-move {
+    animation: grid-move 20s linear infinite;
+  }
+  
+  .animate-cyber-pulse {
+    animation: cyber-pulse 2s ease-in-out infinite;
+  }
+  
+  @media (max-width: 768px) {
+    .tool-card:hover {
+      transform: translateY(-5px) rotateX(2deg) rotateY(2deg);
+    }
+  }
+}
